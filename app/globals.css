@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@page {
+  size: auto;
+  margin: 0;
+}
+
+:root {
+  color-scheme: light;
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+}
+
+html,
+body {
+  min-height: 100%;
+  background-color: #f8fafc;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+.safe-area-insets {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+input,
+textarea,
+select,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.receipt-58 {
+  width: 58mm;
+}
+
+.receipt-80 {
+  width: 80mm;
+}
+
+.receipt-paper {
+  background: #ffffff;
+  color: #000000;
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1.25;
+  letter-spacing: 0;
+  padding: 4mm 2mm;
+  box-sizing: border-box;
+}
+
+.receipt-paper.receipt-80 {
+  font-size: 12px;
+  padding: 5mm 3mm;
+}
+
+.receipt-dashed {
+  border-top: 1px dashed #000000;
+  margin: 6px 0;
+}
+
+.receipt-signature {
+  border-top: 1px dashed #000000;
+  margin-top: 28px;
+  padding-top: 4px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+}
+
+.receipt-center {
+  text-align: center;
+}
+
+.receipt-bold {
+  font-weight: 700;
+}
+
+.receipt-muted {
+  font-size: 9px;
+}
+
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  .no-print,
+  .app-sidebar,
+  .app-header,
+  nav,
+  aside,
+  header.app-shell-header,
+  footer.app-shell-footer {
+    display: none !important;
+  }
+
+  .print-root {
+    display: block !important;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .receipt-paper {
+    box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+    color: #000000 !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .receipt-bold {
+    font-weight: 700;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* Fullscreen barcode scanner */
+
+#barcode-camera-scan-region {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden;
+  z-index: 0;
+}
+
+#barcode-camera-scan-region video {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  z-index: 1 !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+#barcode-camera-scan-region canvas {
+  display: none !important;
+}
+
+#qr-shaded-region {
+  display: none !important;
+}
+
+@keyframes scanner-laser-sweep {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(calc(100% - 3px));
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.scanner-laser {
+  animation: scanner-laser-sweep 2.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanner-laser {
+    animation-duration: 6s;
+  }
+}
